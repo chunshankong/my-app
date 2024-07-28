@@ -11,16 +11,6 @@ const client = createPublicClient({
   transport: http(),
 })
 
-export const wagmiAbi = [
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [{ name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-] as const;
-
 type blockTypes = {
   hash: string;
   number: string;
@@ -63,12 +53,20 @@ export default function Counter() {
 
       const httpUrl = uriInfo.replace('ipfs://', 'https://ipfs.io/ipfs/');
       console.log(`转换后的HTTP URL: ${httpUrl}`);
+      setUri(httpUrl);
 
-      const response = await fetch(httpUrl);
+      const response = await fetch(httpUrl,
+        {
+          method: 'GET',
+          mode: 'cors',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }).then(response => response);
+
       const metadata = await response.json();
       console.log('NFT元数据:', metadata);
       setInfo(metadata);
-
 
     };
 

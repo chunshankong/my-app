@@ -60,7 +60,7 @@ export default function Counter() {
           method: 'GET',
           mode: 'cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
         }).then(response => response);
 
